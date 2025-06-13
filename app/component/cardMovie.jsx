@@ -1,25 +1,37 @@
 import { FaStar } from "react-icons/fa";
+import {
+  MdOutlinePlayCircleFilled,
+  MdOutlineCalendarToday,
+} from "react-icons/md";
 
 const CardMovie = ({ title, img, rating, date }) => {
   return (
-    <div className="hover:scale-105 duration-300 cursor-pointer shadow-2xl rounded-2xl overflow-hidden flex flex-col h-[520px] bg-white">
+    <div className="hover:scale-105 duration-300 cursor-pointer shadow-2xl rounded-2xl overflow-hidden flex flex-col h-auto bg-white group relative">
       {/* Gambar */}
-      <img src={img} alt={title} className="object-cover w-full" />
-
+      <img
+        src={img}
+        alt={title}
+        className="object-cover w-full group-hover:brightness-50 duration-300"
+      />
+      <div className="absolute inset-0 flex items-center justify-center transition duration-300 opacity-0 group-hover:opacity-100">
+        <MdOutlinePlayCircleFilled size={72} className="text-white" />
+      </div>
       {/* Judul */}
       <div className="flex-grow flex flex-col justify-between items-center text-center px-4 pt-3 ">
-        <h2 className="font-bold text-2xl line-clamp-1">{title}</h2>
+        <h2 className="font-bold text-lg md:text-xl line-clamp-1">{title}</h2>
       </div>
 
       {/* Rating di bawah */}
-      <div className="flex items-center justify-center gap-2 pb-3 bg-gray-100 ">
-        <div className="flex justify-around w-full">
-          <div className="flex gap-2">
+      <div className="flex items-center justify-center gap-2 py-4 bg-gray-100 text-sm">
+        <div className="flex justify-around w-full text-xs md:text-sm">
+          <div className="flex gap-2 ">
             <FaStar className="text-yellow-500" />
-            <p className="text-md font-semibold">{rating}</p>
+            <p className=" font-semibold">{rating}</p>
           </div>
-          <div>
-            <p className="text-md font-semibold">{date}</p>
+          {/* Date */}
+          <div className="flex  gap-2">
+            <MdOutlineCalendarToday className="text-gray-500" />
+            <span className="font-semibold">{date}</span>
           </div>
         </div>
       </div>

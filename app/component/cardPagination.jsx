@@ -2,24 +2,26 @@ import { FaStar, FaFire, FaPlay, FaInfoCircle } from "react-icons/fa";
 
 const CardPagination = ({ title, img, rating, popularity }) => {
   return (
-    <div className="h-[600px] w-full relative cursor-pointer shadow-2xl rounded-2xl overflow-hidden">
+    <div className="h-[500px] sm:h-[550px] md:h-[600px]  w-full relative rounded-2xl overflow-hidden ">
       {/* Gambar */}
-      <img src={img} alt={title} className="object-cover w-full h-full" />
+      <img src={img} alt={title} className="object-cover w-full h-full " />
 
       {/* Overlay dan Konten */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center">
-        <div className="grid gap-10">
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center ">
+        <div className="grid gap-6 sm:gap-8 md:gap-10 px-5 sm:px-10">
           {/* Judul */}
-          <div className="text-white px-10 max-w-2xl">
-            <h2 className="text-5xl font-bold">{title}</h2>
+          <div className="text-white max-w-xl">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+              {title}
+            </h2>
 
             {/* Rating & Popularity */}
-            <div className="mt-10 gap-2 grid">
-              <div className="flex items-center gap-3 text-xl font-semibold">
+            <div className="mt-4 sm:mt-6 md:mt-10 gap-2 grid ">
+              <div className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg md:text-xl font-semibold">
                 <FaStar className="text-yellow-400" />
                 <p>Rating: {rating}</p>
               </div>
-              <div className="flex items-center gap-3 text-xl font-semibold">
+              <div className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg md:text-xl font-semibold">
                 <FaFire className="text-red-500" />
                 <p>Popularity: {popularity}</p>
               </div>
@@ -27,12 +29,12 @@ const CardPagination = ({ title, img, rating, popularity }) => {
           </div>
 
           {/* Tombol */}
-          <div className="flex gap-5 pl-8">
-            <button className="flex items-center gap-2 bg-red-500 border border-white text-white font-semibold py-3 px-6 rounded-full hover:bg-transparent hover:scale-105 duration-300">
+          <div className="flex flex-wrap gap-3 sm:gap-5">
+            <button className="flex items-center gap-2 bg-red-500 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-transparent hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base">
               <FaPlay />
               Watch Now
             </button>
-            <button className="flex items-center gap-2 border border-white text-white font-semibold py-3 px-6 rounded-full hover:bg-red-600 hover:scale-105 duration-300">
+            <button className="flex items-center gap-2 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-red-600 hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base">
               <FaInfoCircle />
               Details
             </button>
