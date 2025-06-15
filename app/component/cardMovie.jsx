@@ -6,7 +6,7 @@ import {
 
 const CardMovie = ({ title, img, rating, date }) => {
   return (
-    <div className="hover:scale-105 duration-300 cursor-pointer shadow-2xl rounded-2xl overflow-hidden flex flex-col h-auto bg-white group relative">
+    <div className=" hover:scale-105 duration-300 cursor-pointer shadow-2xl rounded-2xl overflow-hidden flex flex-col h-auto bg-white group relative">
       {/* Gambar */}
       <img
         src={img}
@@ -18,7 +18,7 @@ const CardMovie = ({ title, img, rating, date }) => {
       </div>
       {/* Judul */}
       <div className="flex-grow flex flex-col justify-between items-center text-center px-4 pt-3 ">
-        <h2 className="font-bold text-lg md:text-xl line-clamp-1">{title}</h2>
+        <h2 className="font-bold text-base md:text-lg lg:text-xl line-clamp-1">{title}</h2>
       </div>
 
       {/* Rating di bawah */}

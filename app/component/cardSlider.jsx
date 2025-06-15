@@ -1,8 +1,8 @@
 import { FaStar, FaFire, FaPlay, FaInfoCircle } from "react-icons/fa";
 
-const CardPagination = ({ title, img, rating, popularity }) => {
+const CardSlider = ({ title, img, rating, popularity }) => {
   return (
-    <div className="h-[500px] sm:h-[550px] md:h-[600px]  w-full relative rounded-2xl overflow-hidden ">
+    <div className=" h-[400px] sm:h-[450px] md:h-[600px]  w-full relative rounded-2xl overflow-hidden">
       {/* Gambar */}
       <img src={img} alt={title} className="object-cover w-full h-full " />
 
@@ -45,4 +45,4 @@ const CardPagination = ({ title, img, rating, popularity }) => {
   );
 };
 
-export default CardPagination;
+export default CardSlider;
