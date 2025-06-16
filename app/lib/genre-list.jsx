@@ -13,7 +13,7 @@ export const getGenre = async () => {
     const res = await tmdb.get("/genre/movie/list");
     return res.data.genres;
   } catch (err) {
-    console.error("Gagal mengambil data genre:", err);
+    console.error("Gagal mengambil data genre", err);
     return [];
   }
 };

@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { getPopularMovie } from "../lib/popular-api";
 import CardMovie from "../component/cardMovie";
+import SkeletonCardMovie from "../component/skeleton/skeletonCardMovie"; 
 import LayoutSection from "../layout/layoutSection";
 
-const TopRatedPage = () => {
+const PopularPage = () => {
   const [populars, setPopulars] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +16,9 @@ const TopRatedPage = () => {
         const data = await getPopularMovie();
         setPopulars(data);
       } catch (err) {
-        console.error("Error fetching upcoming data:", err);
+        console.error("Error fetching popular data:", err);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -23,17 +27,21 @@ const TopRatedPage = () => {
 
   return (
     <LayoutSection>
-      {populars.map((popular) => (
-        <CardMovie
-          key={popular.id}
-          title={popular.title}
-          rating={popular.vote_average}
-          date={popular.release_date}
-          img={`https://image.tmdb.org/t/p/w500${popular.poster_path}`}
-        />
-      ))}
+      {loading
+        ? Array.from({ length: 12 }).map((_, index) => (
+            <SkeletonCardMovie key={index} />
+          ))
+        : populars.map((popular) => (
+            <CardMovie
+              key={popular.id}
+              title={popular.title}
+              rating={popular.vote_average}
+              date={popular.release_date}
+              img={`https://image.tmdb.org/t/p/w500${popular.poster_path}`}
+            />
+          ))}
     </LayoutSection>
   );
 };
 
-export default TopRatedPage;
+export default PopularPage;

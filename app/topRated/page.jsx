@@ -4,17 +4,21 @@ import { useEffect, useState } from "react";
 import { getTopRated } from "../lib/top-rated";
 import CardMovie from "../component/cardMovie";
 import LayoutSection from "../layout/layoutSection";
+import SkeletonCardMovie from "../component/skeleton/skeletonCardMovie"; 
 
 const TopRatedPage = () => {
-  const [rateds, setRateds] = useState([]);
+  const [topRate, setTopRate] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getTopRated();
-        setRateds(data);
+        setTopRate(data);
       } catch (err) {
         console.error("Error fetching upcoming data:", err);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -23,15 +27,19 @@ const TopRatedPage = () => {
 
   return (
     <LayoutSection>
-      {rateds.map((rated) => (
-        <CardMovie
-          key={rated.id}
-          title={rated.title}
-          rating={rated.vote_average}
-          date={rated.release_date}
-          img={`https://image.tmdb.org/t/p/w500${rated.poster_path}`}
-        />
-      ))}
+      {loading
+        ? Array.from({ length: 12 }).map((_, index) => (
+            <SkeletonCardMovie key={index} />
+          ))
+        : topRate.map((topRates) => (
+            <CardMovie
+              key={topRates.id}
+              title={topRates.title}
+              rating={topRates.vote_average}
+              date={topRates.release_date}
+              img={`https://image.tmdb.org/t/p/w500${topRates.poster_path}`}
+            />
+          ))}
     </LayoutSection>
   );
 };
