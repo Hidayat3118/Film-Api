@@ -1,6 +1,11 @@
 import { FaStar, FaFire, FaPlay, FaInfoCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const CardSlider = ({ title, img, rating, popularity }) => {
+  const Toggle = () => {
+    toast.error("tidak bisa menonton karna hak cipta");
+  };
+
   return (
     <div className=" h-[400px] sm:h-[450px] md:h-[600px]  w-full relative rounded-2xl overflow-hidden">
       {/* Gambar */}
@@ -30,11 +35,17 @@ const CardSlider = ({ title, img, rating, popularity }) => {
 
           {/* Tombol */}
           <div className="flex flex-wrap gap-3 sm:gap-5">
-            <button className="flex items-center gap-2 bg-red-500 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-transparent hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base">
+            <button
+              onClick={Toggle}
+              className="flex items-center gap-2 bg-red-500 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-transparent hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base"
+            >
               <FaPlay />
               Watch Now
             </button>
-            <button className="flex items-center gap-2 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-red-600 hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base">
+            <button
+              onClick={Toggle}
+              className="flex items-center gap-2 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-red-600 hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base"
+            >
               <FaInfoCircle />
               Details
             </button>
