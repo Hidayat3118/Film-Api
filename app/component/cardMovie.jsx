@@ -28,7 +28,7 @@ const CardMovie = ({ title, img, rating, date }) => {
       </div>
 
       {/* Rating di bawah */}
-      <div className="flex items-center justify-center gap-2 py-4 bg-gray-100 text-sm">
+      <div className="flex items-center justify-center gap-2 py-4 text-sm">
         <div className="flex justify-around w-full text-xs md:text-sm">
           <div className="flex gap-2 ">
             <FaStar className="text-yellow-500" />
@@ -36,7 +36,7 @@ const CardMovie = ({ title, img, rating, date }) => {
           </div>
           {/* Date */}
           <div className="flex  gap-2">
-            <MdOutlineCalendarToday className="text-gray-500" />
+            <MdOutlineCalendarToday className="" />
             <span className="font-semibold">{date}</span>
           </div>
         </div>
