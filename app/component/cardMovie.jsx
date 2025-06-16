@@ -22,7 +22,7 @@ const CardMovie = ({ title, img, rating, date }) => {
       </div>
       {/* Judul */}
       <div className="flex-grow flex flex-col justify-between items-center text-center px-4 pt-3 ">
-        <h2 className="font-bold text-base md:text-lg lg:text-xl line-clamp-1">
+        <h2 className="font-bold text-base md:text-lg lg:text-xl line-clamp-1 text-gray-700">
           {title}
         </h2>
       </div>
@@ -32,12 +32,12 @@ const CardMovie = ({ title, img, rating, date }) => {
         <div className="flex justify-around w-full text-xs md:text-sm">
           <div className="flex gap-2 ">
             <FaStar className="text-yellow-500" />
-            <p className=" font-semibold">{rating}</p>
+            <p className=" font-semibold text-gray-700">{rating}</p>
           </div>
           {/* Date */}
-          <div className="flex  gap-2">
-            <MdOutlineCalendarToday className="" />
-            <span className="font-semibold">{date}</span>
+          <div className="flex gap-2">
+            <MdOutlineCalendarToday className="text-gray-700" />
+            <span className="font-semibold text-gray-700">{date}</span>
           </div>
         </div>
       </div>

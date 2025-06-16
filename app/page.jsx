@@ -21,7 +21,9 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoadingSlider, setIsLoadingSlider] = useState(true);
   const [isLoadingMovies, setIsLoadingMovies] = useState(true);
+  const [isLoadingGenres, setIsLoadingGenres] = useState(true);
 
+  // Slider: Now Playing
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,6 +38,7 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // Genre List
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -43,11 +46,14 @@ const Home = () => {
         setGenres(data);
       } catch (err) {
         console.error("Error fetching genre data:", err);
+      } finally {
+        setIsLoadingGenres(false);
       }
     };
     fetchGenres();
   }, []);
 
+  // Movie List by Genre
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -78,6 +84,7 @@ const Home = () => {
     <main className="bg-gray-100">
       <Navbar />
       <div className="container mx-auto min-h-screen">
+        {/* Slider Section */}
         <section className="py-10 px-3 md:px-0 mt-16 md:mt-20 overflow-hidden">
           {isLoadingSlider ? (
             <SkeletonCardSlider />
@@ -96,27 +103,50 @@ const Home = () => {
           )}
         </section>
 
+        {/* Genre Filter Section */}
         <section className="lg:flex lg:flex-wrap flex gap-2 lg:gap-3 text-sm md:text-base lg:text-lg mx-3 px-3 py-4 lg:px-0 items-center lg:justify-center overflow-x-auto whitespace-nowrap">
-          <button
-            onClick={() => setSelectedGenre(null)}
-            className={`border ${selectedGenre === null ? "bg-red-500 text-white" : "border-red-400 text-gray-700"} font-semibold rounded-full py-2 px-6 shadow hover:bg-red-500 hover:text-white duration-300 cursor-pointer`}
-          >
-            All
-          </button>
-          {genres.map((genre) => (
-            <button
-              key={genre.id}
-              onClick={() => setSelectedGenre(genre.id)}
-              className={`border ${selectedGenre === genre.id ? "bg-red-500 text-white" : "border-red-400 text-gray-700"} font-semibold rounded-full py-2 px-6 shadow hover:bg-red-500 hover:text-white duration-300 cursor-pointer`}
-            >
-              {genre.name}
-            </button>
-          ))}
+          {isLoadingGenres ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="w-20 h-10 bg-gray-300 rounded-full animate-pulse"
+              ></div>
+            ))
+          ) : (
+            <>
+              <button
+                onClick={() => setSelectedGenre(null)}
+                className={`border ${
+                  selectedGenre === null
+                    ? "bg-red-500 text-white"
+                    : "border-red-400 text-gray-700"
+                } font-semibold rounded-full py-2 px-6 shadow hover:bg-red-500 hover:text-white duration-300 cursor-pointer`}
+              >
+                All
+              </button>
+              {genres.map((genre) => (
+                <button
+                  key={genre.id}
+                  onClick={() => setSelectedGenre(genre.id)}
+                  className={`border ${
+                    selectedGenre === genre.id
+                      ? "bg-red-500 text-white"
+                      : "border-red-400 text-gray-700"
+                  } font-semibold rounded-full py-2 px-6 shadow hover:bg-red-500 hover:text-white duration-300 cursor-pointer`}
+                >
+                  {genre.name}
+                </button>
+              ))}
+            </>
+          )}
         </section>
 
+        {/* Movies Section */}
         <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4 lg:gap-5 xl:gap-10 px-3 md:px-0 mt-4 lg:mt-6">
           {isLoadingMovies ? (
-            Array.from({ length: 12 }).map((_, index) => <SkeletonCardMovie key={index} />)
+            Array.from({ length: 12 }).map((_, index) => (
+              <SkeletonCardMovie key={index} />
+            ))
           ) : movies.length > 0 ? (
             movies.map((movie) => (
               <CardMovie
