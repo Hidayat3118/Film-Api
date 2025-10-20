@@ -5,11 +5,12 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
 --
 
 ## Fitur
-- Pengguna dapat mencari film berdasarkan judul secara real-time melalui TMDb API.
-- Menyediakan berbagai kategori film seperti Popular, Top Rated, dan Now Playing untuk memudahkan eksplorasi.
-- Dibangun menggunakan Tailwind CSS dan/atau CSS Modules, memastikan tampilan yang bersih, fleksibel, dan optimal di berbagai perangkat.
-- Optimasi font dengan [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) → [Geist](https://vercel.com/font)
-- iap untuk **Deploy ke Vercel**
+- Cari film favorit kamu berdasarkan judul secara cepat dan akurat menggunakan data real-time dari TMDb API.
+- Telusuri berbagai kategori menarik seperti Popular, Top Rated, Now Playing, dan Upcoming Movies.
+- Tampilkan informasi mendalam setiap film, termasuk poster, sinopsis, rating, tanggal rilis, dan genre.
+- Lihat skor dan tingkat popularitas film berdasarkan ulasan pengguna dari seluruh dunia.
+- Setiap film dilengkapi dengan gambar dan poster resmi berkualitas tinggi dari TMDb.
+- Dapatkan daftar film yang baru dirilis atau akan segera tayang dengan pembaruan data otomatis.
 
 --
 
@@ -45,7 +46,7 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
 </table>
 
 
----
+
 
 ## Sumber Data
 
