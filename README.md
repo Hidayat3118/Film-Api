@@ -24,7 +24,7 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
   <tr>
     <td align="center" width="50%">
       <strong>Home</strong><br><br>
-      <img src="./github/popular.png" width="95%" alt="Home">
+      <img src="./github/popular.PNG" width="95%" alt="Home">
     </td>
     <td align="center" width="50%">
       <strong>Page Popular</strong><br><br>
