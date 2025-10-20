@@ -16,7 +16,7 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
 
 ## Screenshots App
 
-### Landing Page
+### Home page
 ![Tampilan Project](./github/landingPage.png)
 
 
@@ -24,11 +24,11 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
 <table align="center">
   <tr>
     <td align="center" width="50%">
-      <strong>Home</strong><br><br>
+      <strong>Popular Page</strong><br><br>
       <img src="./github/popular.PNG" width="95%" alt="Home">
     </td>
     <td align="center" width="50%">
-      <strong>Page Popular</strong><br><br>
+      <strong>Top Rated Page</strong><br><br>
       <img src="./github/top.PNG" width="95%" alt="Login">
     </td>
   </tr>
@@ -38,7 +38,7 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
       <img src="./github/serch.PNG" width="95%" alt="Dashboard">
     </td>
     <td align="center" width="50%">
-      <strong>Page Upcoming</strong><br><br>
+      <strong>Upcoming Page</strong><br><br>
       <img src="./github/upcoming.PNG" width="95%" alt="Detail Seminar">
     </td>
   </tr>
