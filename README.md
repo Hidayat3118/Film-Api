@@ -18,21 +18,17 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
 ### Landing Page
 ![Tampilan Project](./github/landingPage.png)
 
-### Popular Section
-![Tampilan Project](./github/popular.PNG)
 
-### Penerbit Page
-![Tampilan Project](./github/penerbit.PNG)
 
 <table align="center">
   <tr>
     <td align="center" width="50%">
       <strong>Home</strong><br><br>
-      <img src="./github/landingPage.png" width="95%" alt="Home">
+      <img src="./github/popular.png" width="95%" alt="Home">
     </td>
     <td align="center" width="50%">
       <strong>Page Popular</strong><br><br>
-      <img src="./github/popular.PNG" width="95%" alt="Login">
+      <img src="./github/top.PNG" width="95%" alt="Login">
     </td>
   </tr>
   <tr>
@@ -41,7 +37,7 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
       <img src="./github/serch.PNG" width="95%" alt="Dashboard">
     </td>
     <td align="center" width="50%">
-      <strong>Detail Seminar</strong><br><br>
+      <strong>Page Upcoming</strong><br><br>
       <img src="./github/upcoming.PNG" width="95%" alt="Detail Seminar">
     </td>
   </tr>
