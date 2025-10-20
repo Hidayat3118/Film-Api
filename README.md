@@ -2,7 +2,7 @@
 
 Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri informasi film melalui integrasi dengan TMDb (The Movie Database) API, Proyek ini dibuat sebagai bagian dari portfolio dan pembelajaran dalam mengimplementasikan React + Next.js, Tailwind CSS, serta API integration secara modern dan efisien.
 
----
+--
 
 ## Fitur
 - Pengguna dapat mencari film berdasarkan judul secara real-time melalui TMDb API.
@@ -11,9 +11,9 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
 - Optimasi font dengan [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) → [Geist](https://vercel.com/font)
 - iap untuk **Deploy ke Vercel**
 
----
+--
 
-## Screenshots A
+## Screenshots App
 
 ### Landing Page
 ![Tampilan Project](./github/landingPage.png)
