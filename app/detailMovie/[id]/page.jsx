@@ -61,7 +61,7 @@ export default function MovieDetailPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 text-gray-900 min-h-screen flex items-center">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 text-gray-900 min-h-screen flex items-center">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-gray-100 rounded-3xl p-6 sm:p-10 md:p-16 shadow-xl border border-gray-200 w-full">
         {/* Poster */}
         <div className="flex justify-center">
@@ -100,7 +100,7 @@ export default function MovieDetailPage() {
           </div>
 
           {/* Deskripsi */}
-          <p className="text-gray-700 leading-relaxed mb-6 text-sm sm:text-base text-center md:text-left">
+          <p className="text-gray-700 leading-relaxed mb-6 text-sm sm:text-base text-justify md:text-left">
             {movie.overview || (
               <span className="italic text-gray-500">
                 Tidak ada deskripsi tersedia.
