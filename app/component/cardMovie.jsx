@@ -34,7 +34,7 @@ const CardMovie = ({ id, title, img, rating, date }) => {
           <div className="flex justify-around w-full text-xs md:text-sm">
             <div className="flex gap-2 ">
               <FaStar className="text-yellow-500" />
-              <p className=" font-semibold text-gray-700">{rating.toFixed(1)}</p>
+              <p className=" font-semibold text-gray-700">{rating.toFixed(2)}</p>
             </div>
             {/* Date */}
             <div className="flex gap-2">

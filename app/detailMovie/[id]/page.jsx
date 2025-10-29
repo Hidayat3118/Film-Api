@@ -5,12 +5,15 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { getDetailMovie } from "../../lib/detailMovieApi";
 import { FaStar, FaHeart, FaPlay, FaCalendarAlt } from "react-icons/fa";
+import { getMovieTrailer } from "@/app/lib/trailerVideo";
+import Link from "next/link";
 
 export default function MovieDetailPage() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [trailer, setTrailer] = useState([]);
+  // api detail movie
   useEffect(() => {
     const fetchMovieDetail = async () => {
       try {
@@ -24,7 +27,22 @@ export default function MovieDetailPage() {
     };
 
     if (id) fetchMovieDetail();
-  }, [id]);
+  }, [id]); // ✅ tetap `[id]`
+
+  // api trailer movie
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getMovieTrailer(id);
+        console.log("Trailer URL:", data);
+        setTrailer(data);
+      } catch (error) {
+        console.error("gagal di page trailer movie", error);
+      }
+    };
+
+    if (id) fetchData();
+  }, [id]); // ✅ juga `[id]`
 
   if (loading) {
     return (
@@ -76,7 +94,7 @@ export default function MovieDetailPage() {
             <div className="flex items-center gap-2">
               <FaStar className="text-yellow-500" />
               <p className="font-semibold text-gray-800">
-                {movie.vote_average.toFixed(1)}
+                {movie.vote_average.toFixed(2)}
               </p>
             </div>
           </div>
@@ -109,12 +127,24 @@ export default function MovieDetailPage() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
-            <button className="flex items-center justify-center md:text-lg gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium shadow-md transition w-full sm:w-auto">
-              <FaPlay className="text-white" />
-              Tonton Trailer
-            </button>
+            {trailer ? (
+              <a href={trailer} target="_blank" rel="noopener noreferrer">
+                <button className="flex items-center justify-center md:text-lg gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium shadow-md transition w-full sm:w-auto">
+                  <FaPlay className="text-white" />
+                  Tonton Trailer
+                </button>
+              </a>
+            ) : (
+              <button
+                disabled
+                className="flex items-center justify-center md:text-lg gap-2 bg-gray-300 text-gray-600 px-5 py-2 rounded-xl font-medium cursor-not-allowed w-full sm:w-auto"
+              >
+                <FaPlay />
+                Trailer Tidak Tersedia
+              </button>
+            )}
 
-            <button className="flex items-center justify-center md:text-lg gap-2 bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-2 rounded-xl font-medium border border-gray-300 shadow-sm transition w-full sm:w-auto">
+            <button className="flex items-center justify-center md:text-lg gap-2 hover:bg-gray-200  text-gray-800 px-5 py-2 rounded-xl font-medium border border-gray-300 shadow-sm transition w-full sm:w-auto">
               <FaHeart className="text-red-500" />
               Tambah ke Favorit
             </button>

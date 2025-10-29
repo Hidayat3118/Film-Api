@@ -25,7 +25,7 @@ const CardSlider = ({ id, title, img, rating, popularity }) => {
             <div className="mt-4 sm:mt-6 md:mt-10 gap-2 grid ">
               <div className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg md:text-xl font-semibold">
                 <FaStar className="text-yellow-400" />
-                <p>Rating: {rating}</p>
+                <p>Rating: {rating.toFixed(2)}</p>
               </div>
               <div className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg md:text-xl font-semibold">
                 <FaFire className="text-red-500" />
