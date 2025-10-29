@@ -42,7 +42,6 @@ Aplikasi ini dirancang untuk memudahkan pengguna dalam menemukan dan menelusuri 
       <img src="./github/upcoming.PNG" width="95%" alt="Detail Seminar">
     </td>
   </tr>
-  
 </table>
 
 

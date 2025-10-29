@@ -33,6 +33,7 @@ const TopRatedPage = () => {
           ))
         : topRate.map((topRates) => (
             <CardMovie
+              id={topRates.id}
               key={topRates.id}
               title={topRates.title}
               rating={topRates.vote_average}

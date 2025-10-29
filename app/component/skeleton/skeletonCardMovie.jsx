@@ -2,7 +2,7 @@ const SkeletonCardMovie = () => {
   return (
     <div className="hover:scale-105 duration-300 shadow-2xl rounded-2xl overflow-hidden flex flex-col h-auto bg-white animate-pulse">
       {/* Gambar (Placeholder) */}
-      <div className="w-full h-56 bg-gray-300" />
+      <div className="w-full h-56 md:h-72 bg-gray-300" />
 
       {/* Judul Placeholder */}
       <div className="flex-grow flex flex-col justify-between items-center text-center px-4 pt-3 pb-2">

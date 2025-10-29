@@ -92,6 +92,7 @@ const Home = () => {
             <Slider {...settings}>
               {playings.map((playing) => (
                 <CardSlider
+                  id={playing.id}
                   key={playing.id}
                   title={playing.title}
                   rating={playing.vote_average}
@@ -106,10 +107,10 @@ const Home = () => {
         {/* Genre Filter Section */}
         <section className="lg:flex lg:flex-wrap flex gap-2 lg:gap-3 text-sm md:text-base lg:text-lg mx-3 px-3 py-4 lg:px-0 items-center lg:justify-center overflow-x-auto whitespace-nowrap">
           {isLoadingGenres ? (
-            Array.from({ length: 6 }).map((_, index) => (
+            Array.from({ length: 15 }).map((_, index) => (
               <div
                 key={index}
-                className="w-20 h-10 bg-gray-300 rounded-full animate-pulse"
+                className="md:w-32 min-w-20 h-10 md:h-12 bg-gray-300 rounded-full animate-pulse"
               ></div>
             ))
           ) : (
@@ -151,6 +152,7 @@ const Home = () => {
             movies.map((movie) => (
               <CardMovie
                 key={movie.id}
+                id={movie.id}
                 title={movie.title}
                 img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 rating={movie.vote_average}

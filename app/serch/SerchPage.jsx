@@ -6,6 +6,7 @@ import CardMovie from "../component/cardMovie";
 import Layout from "../layout/layout";
 import { useSearchParams } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
+import SkeletonCardMovie from "../component/skeleton/skeletonCardMovie";
 
 const SerchPage = () => {
   const [serchs, setSerchs] = useState([]);
@@ -45,29 +46,33 @@ const SerchPage = () => {
 
   return (
     <Layout>
+      {/* Skeleton tampil saat loading */}
       {loading && (
-        <div className="flex justify-center items-center min-h-[200px] gap-2 text-red-600 animate-pulse mt-12 md:mt-32 lg:mt-52">
-          <FaSearch className="text-2xl" />
-          <p className="text-lg md:text-xl font-semibold">Mencari film...</p>
-        </div>
+        <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4 lg:gap-5 xl:gap-10 px-3 mt-10">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <SkeletonCardMovie key={index} />
+          ))}
+        </section>
       )}
 
+      {/* Jika pencarian tidak ditemukan */}
       {!loading && notFound && (
         <div className="flex justify-center items-center min-h-[200px]">
-          <div className=" text-gray-500 px-6 py-4  max-w-md text-center space-y-1 mt-12 md:mt-32 lg:mt-52">
-            <div className="flex gap-2">
+          <div className="text-gray-500 px-6 py-4 max-w-md text-center space-y-1 mt-12 md:mt-32 lg:mt-52">
+            <div className="flex gap-2 justify-center items-center">
               <p className="text-base md:text-lg font-semibold">
-                Tidak ditemukan hasil Pencarian
+                Tidak ditemukan hasil pencarian
               </p>
-              <FaSearch className="text-xl md:text-2xl text-gray-500 mx-auto" />
+              <FaSearch className="text-xl md:text-2xl text-gray-500" />
             </div>
-            <p className="italic text-base md:text-lg text-red-500  mt-1">
+            <p className="italic text-base md:text-lg text-red-500 mt-1">
               "{query}"
             </p>
           </div>
         </div>
       )}
 
+      {/* Jika hasil pencarian ditemukan */}
       {!loading && !notFound && (
         <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4 lg:gap-5 xl:gap-10 px-3">
           {serchs.map((serch) => (

@@ -1,7 +1,8 @@
 import { FaStar, FaFire, FaPlay, FaInfoCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
-const CardSlider = ({ title, img, rating, popularity }) => {
+const CardSlider = ({ id, title, img, rating, popularity }) => {
   const Toggle = () => {
     toast.error("tidak bisa menonton karna hak cipta");
   };
@@ -35,20 +36,18 @@ const CardSlider = ({ title, img, rating, popularity }) => {
 
           {/* Tombol */}
           <div className="flex flex-wrap gap-3 sm:gap-5">
-            <button
-              onClick={Toggle}
-              className="flex items-center gap-2 bg-red-500 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-transparent hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base"
-            >
-              <FaPlay />
-              Watch Now
-            </button>
-            <button
-              onClick={Toggle}
-              className="flex items-center gap-2 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-red-600 hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base"
-            >
-              <FaInfoCircle />
-              Details
-            </button>
+            <Link href={`/detailMovie/${id}`}>
+              <button className="flex items-center gap-2 bg-red-500 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-transparent hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base">
+                <FaPlay />
+                Watch Now
+              </button>
+            </Link>
+            <Link href={`/detailMovie/${id}`}>
+              <button className="flex items-center gap-2 border border-white text-white font-semibold py-2 px-5 sm:py-3 sm:px-6 rounded-full hover:bg-red-600 hover:scale-105 duration-300 cursor-pointer text-sm sm:text-base">
+                <FaInfoCircle />
+                Details
+              </button>
+            </Link>
           </div>
         </div>
       </div>

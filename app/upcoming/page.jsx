@@ -33,6 +33,7 @@ const UpcomingPage = () => {
           ))
         : comings.map((coming) => (
             <CardMovie
+              id={coming.id}
               key={coming.id}
               title={coming.title}
               rating={coming.vote_average}

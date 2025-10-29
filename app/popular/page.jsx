@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { getPopularMovie } from "../lib/popular-api";
 import CardMovie from "../component/cardMovie";
-import SkeletonCardMovie from "../component/skeleton/skeletonCardMovie"; 
+import SkeletonCardMovie from "../component/skeleton/skeletonCardMovie";
 import LayoutSection from "../layout/layoutSection";
 
 const PopularPage = () => {
   const [populars, setPopulars] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +18,7 @@ const PopularPage = () => {
       } catch (err) {
         console.error("Error fetching popular data:", err);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -33,6 +33,7 @@ const PopularPage = () => {
           ))
         : populars.map((popular) => (
             <CardMovie
+              id={popular.id}
               key={popular.id}
               title={popular.title}
               rating={popular.vote_average}
