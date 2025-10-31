@@ -7,6 +7,9 @@ import { getDetailMovie } from "../../lib/detailMovieApi";
 import { FaStar, FaHeart, FaPlay, FaCalendarAlt } from "react-icons/fa";
 import { getMovieTrailer } from "@/app/lib/trailerVideo";
 import Link from "next/link";
+// toggle
+import { BookmarkIcon } from "lucide-react";
+import { Toggle } from "@/components/ui/toggle";
 
 export default function MovieDetailPage() {
   const { id } = useParams();
@@ -27,7 +30,7 @@ export default function MovieDetailPage() {
     };
 
     if (id) fetchMovieDetail();
-  }, [id]); // ✅ tetap `[id]`
+  }, [id]);
 
   // api trailer movie
   useEffect(() => {
@@ -42,7 +45,7 @@ export default function MovieDetailPage() {
     };
 
     if (id) fetchData();
-  }, [id]); // ✅ juga `[id]`
+  }, [id]);
 
   if (loading) {
     return (
@@ -129,7 +132,7 @@ export default function MovieDetailPage() {
           <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
             {trailer ? (
               <a href={trailer} target="_blank" rel="noopener noreferrer">
-                <button className="flex items-center justify-center md:text-lg gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium shadow-md transition w-full sm:w-auto">
+                <button className="flex items-center justify-center md:text-lg gap-2 bg-red-500 cursor-pointer hover:scale-105 hover:bg-red-700 text-white px-5 py-2 rounded-xl font-medium shadow-md transition w-full sm:w-auto">
                   <FaPlay className="text-white" />
                   Tonton Trailer
                 </button>
@@ -137,17 +140,22 @@ export default function MovieDetailPage() {
             ) : (
               <button
                 disabled
-                className="flex items-center justify-center md:text-lg gap-2 bg-gray-300 text-gray-600 px-5 py-2 rounded-xl font-medium cursor-not-allowed w-full sm:w-auto"
+                className="flex items-center justify-center h-12 text-sm md:text-base gap-2 bg-gray-300 text-gray-600 px-5 py-2 duration-100 rounded-xl font-medium cursor-not-allowed w-full sm:w-auto"
               >
                 <FaPlay />
                 Trailer Tidak Tersedia
               </button>
             )}
 
-            <button className="flex items-center justify-center md:text-lg gap-2 hover:bg-gray-200  text-gray-800 px-5 py-2 rounded-xl font-medium border border-gray-300 shadow-sm transition w-full sm:w-auto">
-              <FaHeart className="text-red-500" />
-              Tambah ke Favorit
-            </button>
+            <Toggle
+              aria-label="Toggle bookmark"
+              size="lg"
+              variant="outline"
+              className="cursor-pointer transition hover:scale-105 duration-100 data-[state=on]:*:[svg]:fill-black data-[state=on]:*:[svg]:stroke-black px-5 py-2 border border-gray-300 rounded-xl font-semibold text-sm md:text-base"
+            >
+              <BookmarkIcon />
+              Save Movie
+            </Toggle>
           </div>
         </div>
       </div>

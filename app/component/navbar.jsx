@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Profil from "../component/profil";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,31 +58,40 @@ const Navbar = () => {
             </Link>
 
             {/* Search Bar */}
-            <div className="relative">
+            <div className="relative flex gap-4">
               <form onSubmit={serchSubmit}>
                 <input
                   type="text"
                   placeholder="Search movies..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:ring-2 focus:ring-red-400 focus:outline-none transition w-64 text-gray-500"
+                  className="pl-10 pr-4 py-2 rounded-full border border-gray-400 focus:ring-2 focus:ring-red-400 focus:outline-none transition w-64 text-gray-500"
                 />
               </form>
               <FiSearch
-                className="absolute left-3 top-2.5 text-gray-500"
+                className="absolute left-3 top-2.5 text-gray-600"
                 size={18}
               />
+              {/* login */}
+              
+              {/* profil */}
+              <Profil/>
             </div>
           </div>
 
           {/* Menu Button Mobile */}
-          <div className="md:hidden">
+          <div className="md:hidden flex gap-3">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-700 focus:outline-none"
             >
               {isOpen ? <HiX size={26} /> : <HiMenu size={26} />}
             </button>
+            {/* profil */}
+            <Avatar className="h-12 w-12">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
           </div>
         </div>
       </div>
@@ -91,7 +102,7 @@ const Navbar = () => {
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 pt-2 pb-4 space-y-4  border-t border-gray-200 grid ">
+        <div className="px-4 pt-2 pb-4 space-y-4  border-t border-gray-200 grid text-center">
           <Link href="/" className={linkClass("/")}>
             Home
           </Link>

@@ -143,7 +143,7 @@ const Home = () => {
         </section>
 
         {/* Movies Section */}
-        <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4 lg:gap-5 xl:gap-10 px-3 md:px-0 mt-4 lg:mt-6">
+        <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6  gap-3 md:gap-4 lg:gap-4 xl:gap-6 px-3 md:px-0 mt-4 lg:mt-6">
           {isLoadingMovies ? (
             Array.from({ length: 12 }).map((_, index) => (
               <SkeletonCardMovie key={index} />

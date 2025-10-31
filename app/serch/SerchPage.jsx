@@ -78,6 +78,7 @@ const SerchPage = () => {
           {serchs.map((serch) => (
             <CardMovie
               key={serch.id}
+              id={serch.id}
               title={serch.title}
               rating={serch.vote_average}
               date={serch.release_date}

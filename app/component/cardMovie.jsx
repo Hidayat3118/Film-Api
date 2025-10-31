@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import {
@@ -7,42 +9,56 @@ import {
 import { toast } from "react-toastify";
 
 const CardMovie = ({ id, title, img, rating, date }) => {
-  const Toggle = () => {
-    toast.error("tidak bisa menonton karna hak cipta");
-  };
-  return (
-    <Link href={`/detailMovie/${id}`}>
-      <div className=" hover:scale-105 duration-300 cursor-pointer shadow-2xl rounded-2xl overflow-hidden flex flex-col h-auto bg-white group relative">
-        {/* Gambar */}
-        <img
-          src={img}
-          alt={title}
-          className="object-cover w-full group-hover:brightness-50 duration-300 h-56 md:h-72"
-        />
-        <div className="absolute inset-0 flex items-center justify-center transition duration-300 opacity-0 group-hover:opacity-100">
-          <MdOutlinePlayCircleFilled size={72} className="text-white" />
-        </div>
-        {/* Judul */}
-        <div className="flex-grow flex flex-col justify-between items-center text-center px-4 pt-3 ">
-          <h2 className="font-bold text-base md:text-lg lg:text-xl line-clamp-1 text-gray-700">
-            {title}
-          </h2>
-        </div>
+  // const handlePlay = (e) => {
+  //   e.preventDefault();
+  //   toast.error("Tidak bisa menonton karena hak cipta 🎬");
+  // };
 
-        {/* Rating di bawah */}
-        <div className="flex items-center justify-center gap-2 py-4 text-sm">
-          <div className="flex justify-around w-full text-xs md:text-sm">
-            <div className="flex gap-2 ">
-              <FaStar className="text-yellow-500" />
-              <p className=" font-semibold text-gray-700">{rating.toFixed(2)}</p>
-            </div>
-            {/* Date */}
-            <div className="flex gap-2">
-              <MdOutlineCalendarToday className="text-gray-700" />
-              <span className="font-semibold text-gray-700">{date}</span>
+  return (
+    <Link href={`/detailMovie/${id}`} className="group">
+      <div className="relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer border border-gray-200">
+        {/* Gambar */}
+        <div className="relative">
+          <img
+            src={img}
+            alt={title}
+            className="object-cover w-full h-64 md:h-80 transition duration-500 group-hover:brightness-90"
+          />
+
+          {/* Tombol Play */}
+          <div
+          
+            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+          >
+            <div className="bg-white rounded-full ">
+              <MdOutlinePlayCircleFilled
+              size={64}
+              className="text-red-500 drop-shadow-md transition-transform scale-105"
+            />
             </div>
           </div>
+
+          {/* Rating Badge */}
+          <div className="absolute top-3 left-3 flex items-center gap-1 bg-black/80 backdrop-blur-sm text-yellow-500 px-2 py-1 rounded-full text-xs font-semibold shadow-sm">
+            <FaStar className="text-yellow-400" />
+            <span>{rating.toFixed(1)}</span>
+          </div>
         </div>
+
+        {/* Konten */}
+        <div className="px-4 py-2 md:py-5 flex flex-col items-center text-center">
+          <h2 className="font-semibold text-base md:text-lg text-gray-800 line-clamp-1">
+            {title}
+          </h2>
+
+          {/* <div className="flex items-center gap-2 mt-2 text-gray-600 text-xs">
+            <MdOutlineCalendarToday className="text-gray-600" />
+            <span>{date}</span>
+          </div> */}
+        </div>
+
+        {/* Efek lembut di bawah */}
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none"></div>
       </div>
     </Link>
   );

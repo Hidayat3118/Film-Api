@@ -10,10 +10,19 @@ const tmdb = axios.create({
 
 export const getMovieTrailer = async (id) => {
   try {
-    const response = await tmdb.get(`/movie/${id}/videos`);
-    const videos = response.data.results;
+    let response = await tmdb.get(`/movie/${id}/videos`, {
+      params: { language: "id-ID" },
+    });
+    let videos = response.data.results;
 
-    // cari trailer atau teaser
+    if (!videos.length) {
+      // fallback ke bahasa Inggris kalau kosong
+      response = await tmdb.get(`/movie/${id}/videos`, {
+        params: { language: "en-US" },
+      });
+      videos = response.data.results;
+    }
+
     const trailer =
       videos.find((v) => v.site === "YouTube" && v.type === "Trailer") ||
       videos.find((v) => v.site === "YouTube" && v.type === "Teaser");
@@ -24,4 +33,3 @@ export const getMovieTrailer = async (id) => {
     return null;
   }
 };
-
