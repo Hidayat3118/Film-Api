@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="container mx-auto">
         <div className="flex justify-between h-20 items-center px-4 md:px-0">
           {/* Logo */}
-          <div className="text-2xl font-bold text-red-500 tracking-wide">
+          <div className="text-lg md:text-xl lg::text-2xl font-bold text-red-500 tracking-wide">
             <Link href="/">MovieApp</Link>
           </div>
 
@@ -73,14 +73,16 @@ const Navbar = () => {
                 size={18}
               />
               {/* login */}
-              
+
               {/* profil */}
-              <Profil/>
+              <Profil />
             </div>
           </div>
 
           {/* Menu Button Mobile */}
           <div className="md:hidden flex gap-3">
+            {/* login */}
+            <Profil />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-700 focus:outline-none"
@@ -88,10 +90,10 @@ const Navbar = () => {
               {isOpen ? <HiX size={26} /> : <HiMenu size={26} />}
             </button>
             {/* profil */}
-            <Avatar className="h-12 w-12">
+            {/* <Avatar className="h-12 w-12">
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            </Avatar> */}
           </div>
         </div>
       </div>
