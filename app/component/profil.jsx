@@ -32,9 +32,11 @@ export default function Profil() {
   // register
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // login
+  const [emailLogin, setEmailLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
   // handle login
   const handleLogin = async (e) => {
-    e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil login");
@@ -56,7 +58,6 @@ export default function Profil() {
   };
   // handle register form
   const handleRegister = async (e) => {
-    e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Registrasi sukses!");
@@ -90,8 +91,8 @@ export default function Profil() {
       </DialogTrigger>
       {/* login */}
       {sesion === "login" ? (
-        <form>
-          <DialogContent className="sm:max-w-[425px] md:px-10">
+        <DialogContent className="sm:max-w-[425px] md:px-10">
+          <form onSubmit={handleLogin}>
             <DialogHeader>
               <DialogTitle className="text-center text-base text-gray-600 w-56 mx-auto space-y-4">
                 {" "}
@@ -111,6 +112,7 @@ export default function Profil() {
                   id="name-1"
                   name="name"
                   placeholder="email"
+                  onChange={(e)=> setEmail(e.target.value)}
                 />
               </div>
               {/* password login */}
@@ -121,18 +123,19 @@ export default function Profil() {
                   id="username-1"
                   name="username"
                   placeholder="Password"
+                  onChange={(e)=> setPassword(e.target.value)}
                 />
               </div>
             </div>
             <DialogFooter>
               <Button
-                className="w-full h-12 rounded-2xl bg-red-500 hover:bg-red-700 cursor-pointer"
+                className="w-full h-12 rounded-2xl bg-red-500 hover:bg-red-700 cursor-pointer mt-6"
                 type="submit"
               >
                 Login
               </Button>
             </DialogFooter>
-            <p className="text-center text-sm">Atau</p>
+            <p className="text-center text-sm my-4">Atau</p>
             {/* button with google */}
             <Button
               onClick={handleGoogle}
@@ -159,8 +162,8 @@ export default function Profil() {
               </button>
             </p>
             {/* end Login */}
-          </DialogContent>
-        </form>
+          </form>
+        </DialogContent>
       ) : (
         // register
         <DialogContent className="sm:max-w-[425px] md:px-10">
@@ -209,6 +212,9 @@ export default function Profil() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <p className="text-sm md:text-base text-gray-500">
+                Gunakan 8 atau lebih huruf, angka, dan simbol
+              </p>
             </div>
             <DialogFooter>
               {/* button daftar */}

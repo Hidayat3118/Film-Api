@@ -129,10 +129,10 @@ export default function MovieDetailPage() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
+          <div className="flex flex-col sm:flex-row gap-4 mt-2 md:mt-4 justify-center md:justify-start">
             {trailer ? (
               <a href={trailer} target="_blank" rel="noopener noreferrer">
-                <button className="flex items-center justify-center md:text-lg gap-2 bg-red-500 cursor-pointer hover:scale-105 hover:bg-red-700 text-white px-5 py-2 rounded-xl font-medium shadow-md transition w-full sm:w-auto">
+                <button className="flex items-center h-12 justify-center md:text-lg gap-2 bg-red-500 cursor-pointer hover:scale-105 hover:bg-red-700 text-white px-5 py-2 rounded-xl font-medium shadow-md transition w-full sm:w-auto">
                   <FaPlay className="text-white" />
                   Tonton Trailer
                 </button>
