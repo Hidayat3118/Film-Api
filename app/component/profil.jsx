@@ -37,6 +37,7 @@ export default function Profil() {
   const [passwordLogin, setPasswordLogin] = useState("");
   // handle login
   const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil login");
@@ -47,6 +48,7 @@ export default function Profil() {
   };
   // handle google
   const handleGoogle = async () => {
+    
     try {
       await signInWithPopup(auth, provider);
       toast.success("Login Google sukses!");
@@ -58,6 +60,7 @@ export default function Profil() {
   };
   // handle register form
   const handleRegister = async (e) => {
+    e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Registrasi sukses!");
@@ -152,9 +155,9 @@ export default function Profil() {
                 </div>
               </div>
             </Button>
-            <p className="text-xs md:text-sm text-center py-2">
+            <p className="text-xs md:text-sm text-center py-2 mt-4">
               Belum bergabung dengan MovieApp?{" "}
-              <button
+              <button type="button"
                 className="font-bold cursor-pointer hover:text-red-500"
                 onClick={() => handleSesion("register")}
               >
@@ -244,7 +247,7 @@ export default function Profil() {
             </Button>
             <p className="text-xs md:text-sm text-center py-2 mt-4">
               Belum bergabung dengan MovieApp?{" "}
-              <button
+              <button type="button"
                 className="font-bold cursor-pointer hover:text-red-500"
                 onClick={() => handleSesion("login")}
               >
