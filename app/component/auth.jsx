@@ -303,7 +303,7 @@ export default function Auth() {
             <Button
               onClick={handleGoogle}
               type="button"
-              className="flex items-center cursor-pointer justify-center w-full h-12 md:h-12 bg-neutral-100 border rounded-xl border-gray-300 shadow-sm hover:bg-gray-50 transition"
+              className="flex items-center cursor-pointer justify-center w-full h-12 md:h-12 bg-neutral-100 hover:bg-neutral-200 border rounded-xl border-gray-300 shadow-sm  transition"
             >
               <div className="flex items-center gap-3">
                 {/* with google */}
@@ -426,7 +426,7 @@ export default function Auth() {
             <Button
               onClick={handleGoogle}
               type="button"
-              className="flex items-center cursor-pointer justify-center w-full h-12 md:h-12 bg-neutral-100 border rounded-xl border-gray-300 shadow-sm hover:bg-gray-50 transition"
+              className="flex items-center cursor-pointer justify-center w-full h-12 md:h-12 bg-neutral-100 border rounded-xl border-gray-300 shadow-sm hover:bg-neutral-200 transition"
             >
               <div className="flex items-center gap-3">
                 {/* with google */}

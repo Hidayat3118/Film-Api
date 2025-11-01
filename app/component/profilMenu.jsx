@@ -48,7 +48,7 @@ export function ProfilMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="flex items-center gap-2 focus:outline-none">
-          <Avatar className="h-12 w-12 md:h-14 md:w-14">
+          <Avatar className="h-12 w-12 md:h-14 md:w-14 cursor-pointer">
             <AvatarImage
               src={user.photoURL || "/profil-default.jpg"}
               alt={user.displayName || "User"}
