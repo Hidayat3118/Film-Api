@@ -27,9 +27,10 @@ export default function RootLayout({ children }) {
         {children}
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={2000}
           pauseOnHover
           theme="light"
+          style={{ top: "70px" }}
         />
       </body>
     </html>
