@@ -37,6 +37,14 @@ import { Spinner } from "@/components/ui/spinner";
 export default function Auth() {
   const router = useRouter();
   const [sesion, setSesion] = useState("login");
+  // handle error
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+    name: "",
+    general: "",
+  });
+
   // register dan login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,21 +57,51 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   // input password
   const [visible, setVisible] = useState(true);
+
   // handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError({ email: "", password: "", name: "", general: "" });
+
+    if (!email || !password) {
+      setError({
+        email: !email ? "Email wajib diisi" : "",
+        password: !password ? "Password wajib diisi" : "",
+        general: "",
+      });
+      setLoading(false);
+      return;
+    }
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil login");
       setOpen(false);
-      // router.push("/");
     } catch (error) {
-      toast.error("Gagal login: " + error.message);
+      console.log("Error code:", error.code);
+      console.log("Error message:", error.message);
+
+      if (error.code === "auth/invalid-email") {
+        setError((prev) => ({ ...prev, email: "Format email tidak valid" }));
+      } else if (error.code === "auth/user-not-found") {
+        setError((prev) => ({ ...prev, email: "Email tidak terdaftar" }));
+      } else if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/invalid-credential"
+      ) {
+        setError((prev) => ({ ...prev, password: "Password salah" }));
+      } else {
+        setError((prev) => ({
+          ...prev,
+          general: "Terjadi kesalahan, coba lagi nanti.",
+        }));
+      }
     } finally {
       setLoading(false);
     }
   };
+
   // handle google
   const handleGoogle = async () => {
     try {
@@ -79,27 +117,68 @@ export default function Auth() {
       setLoading(false);
     }
   };
+
   // handle register form
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError({ email: "", password: "", name: "", general: "" }); // reset error
+
+    // ✅ Validasi field kosong
+    if (!name || !email || !password) {
+      setError({
+        name: !name ? "Nama wajib diisi" : "",
+        email: !email ? "Email wajib diisi" : "",
+        password: !password ? "Password wajib diisi" : "",
+        general: "",
+      });
+      setLoading(false);
+      return;
+    }
+
+    // ✅ Validasi format email sebelum ke Firebase
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError((prev) => ({
+        ...prev,
+        email: "Format email tidak valid",
+      }));
+      setLoading(false);
+      return;
+    }
+
     try {
+      // ✅ Register user
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      await createUserWithEmailAndPassword(auth, email, password);
+
+      // ✅ Update profil (nama + avatar unik)
       await updateProfile(userCredential.user, {
         displayName: name,
-        photoURL: `https://i.pravatar.cc/150?u=${userCredential.user.uid}`,
+        photoURL: `https://api.dicebear.com/8.x/identicon/svg?seed=${userCredential.user.uid}`,
       });
+
       toast.success("Registrasi sukses!");
       setOpen(false);
-      // router.push("/");
     } catch (error) {
-      toast.error("Gagal daftar: " + error.message);
-      console.error("gagal register", error.message);
+      // console.error("Register error:", error.code, error.message);
+
+      // ✅ Tangani error Firebase yang umum
+      if (error.code === "auth/email-already-in-use") {
+        setError((prev) => ({ ...prev, email: "Email sudah terdaftar" }));
+      } else if (error.code === "auth/weak-password") {
+        setError((prev) => ({ ...prev, password: "Password terlalu lemah" }));
+      } else if (error.code === "auth/invalid-email") {
+        setError((prev) => ({ ...prev, email: "Format email tidak valid" }));
+      } else {
+        setError((prev) => ({
+          ...prev,
+          general: "Terjadi kesalahan. Coba lagi nanti.",
+        }));
+      }
     } finally {
       setLoading(false);
     }
@@ -124,7 +203,7 @@ export default function Auth() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog  open={open} onOpenChange={(v) => setOpen(v)}>
       {/* avatar */}
       {user ? (
         <div>
@@ -167,6 +246,10 @@ export default function Auth() {
                   placeholder="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {/* error email */}
+                {error.email && (
+                  <p className="text-red-500 text-sm">{error.email}</p>
+                )}
               </div>
               {/* password login */}
               <Label htmlFor="username-1 ">Password</Label>
@@ -179,6 +262,11 @@ export default function Auth() {
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                {/* salah password */}
+                {error.password && (
+                  <p className="text-red-500 text-sm">{error.password}</p>
+                )}
+
                 <button
                   type="button"
                   onClick={() => setVisible(!visible)}
@@ -187,6 +275,12 @@ export default function Auth() {
                   {visible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
                 </button>
               </div>
+              {/* error umum */}
+              {error.general && (
+                <p className="text-center text-red-500 text-sm mt-2">
+                  {error.general}
+                </p>
+              )}
             </div>
             <DialogFooter>
               {/* button login */}
@@ -256,9 +350,13 @@ export default function Auth() {
                 <Input
                   className="h-12 rounded-2xl border border-gray-300"
                   id="username-2"
-                  placeholder="Name"
+                  placeholder="Masukan Nama Lengkap"
                   onChange={(e) => setName(e.target.value)}
                 />
+                {/* error nama */}
+                {error.name && (
+                  <p className="text-red-500 text-sm">{error.name}</p>
+                )}
               </div>
               {/* email register*/}
               <div className="grid gap-3">
@@ -267,9 +365,13 @@ export default function Auth() {
                   className="h-12 rounded-2xl border border-gray-300"
                   id="name-1"
                   name="name"
-                  placeholder="email"
+                  placeholder="Masukan Email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {/* eror email */}
+                {error.email && (
+                  <p className="text-red-500 text-sm">{error.email}</p>
+                )}
               </div>
               {/* password register*/}
               <Label htmlFor="username-1 ">Password</Label>
@@ -279,7 +381,7 @@ export default function Auth() {
                   className="h-12 rounded-2xl border border-gray-300"
                   id="username-1"
                   name="username"
-                  placeholder="Password"
+                  placeholder="Masukan Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
@@ -289,11 +391,20 @@ export default function Auth() {
                 >
                   {visible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
                 </button>
+                {/* error password */}
+                {error.password && (
+                  <p className="text-red-500 text-sm mt-1">{error.password}</p>
+                )}
               </div>
               <p className="text-sm md:text-base text-gray-500">
                 Gunakan 8 atau lebih huruf, angka, dan simbol
               </p>
             </div>
+            {error.general && (
+              <p className="text-red-500 text-sm text-center mt-2">
+                {error.general}
+              </p>
+            )}
             <DialogFooter>
               {/* button daftar */}
               <Button
