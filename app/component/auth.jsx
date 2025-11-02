@@ -102,8 +102,8 @@ export default function Auth() {
     }
   };
 
-  // handle google
-  const handleGoogle = async () => {
+  // handle google login
+  const handleGoogleLogin = async () => {
     try {
       setLoading(true);
       await signInWithPopup(auth, provider);
@@ -118,13 +118,27 @@ export default function Auth() {
     }
   };
 
+  // handle google
+  const handleGoogleRegister = async () => {
+    try {
+      setLoading(true);
+      await signInWithPopup(auth, provider);
+      toast.success("Register Google sukses!");
+      setOpen(false);
+      // router.push("/");
+    } catch (error) {
+      toast.error("Gagal Register dengan Google: " + error.message);
+      console.error("gagal with google", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // handle register form
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError({ email: "", password: "", name: "", general: "" }); // reset error
-
-    // ✅ Validasi field kosong
+    setError({ email: "", password: "", name: "", general: "" });
     if (!name || !email || !password) {
       setError({
         name: !name ? "Nama wajib diisi" : "",
@@ -135,8 +149,6 @@ export default function Auth() {
       setLoading(false);
       return;
     }
-
-    // ✅ Validasi format email sebelum ke Firebase
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError((prev) => ({
@@ -148,14 +160,11 @@ export default function Auth() {
     }
 
     try {
-      // ✅ Register user
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-
-      // ✅ Update profil (nama + avatar unik)
       await updateProfile(userCredential.user, {
         displayName: name,
         photoURL: `https://api.dicebear.com/8.x/identicon/svg?seed=${userCredential.user.uid}`,
@@ -166,7 +175,6 @@ export default function Auth() {
     } catch (error) {
       // console.error("Register error:", error.code, error.message);
 
-      // ✅ Tangani error Firebase yang umum
       if (error.code === "auth/email-already-in-use") {
         setError((prev) => ({ ...prev, email: "Email sudah terdaftar" }));
       } else if (error.code === "auth/weak-password") {
@@ -203,7 +211,7 @@ export default function Auth() {
   };
 
   return (
-    <Dialog  open={open} onOpenChange={(v) => setOpen(v)}>
+    <Dialog open={open} onOpenChange={(v) => setOpen(v)}>
       {/* avatar */}
       {user ? (
         <div>
@@ -301,7 +309,7 @@ export default function Auth() {
             <p className="text-center text-sm my-4">Atau</p>
             {/* button with google */}
             <Button
-              onClick={handleGoogle}
+              onClick={handleGoogleLogin}
               type="button"
               className="flex items-center cursor-pointer justify-center w-full h-12 md:h-12 bg-neutral-100 hover:bg-neutral-200 border rounded-xl border-gray-300 shadow-sm  transition"
             >
@@ -424,7 +432,7 @@ export default function Auth() {
             <p className="text-center text-sm my-4">Atau</p>
             {/* button with google */}
             <Button
-              onClick={handleGoogle}
+              onClick={handleGoogleRegister}
               type="button"
               className="flex items-center cursor-pointer justify-center w-full h-12 md:h-12 bg-neutral-100 border rounded-xl border-gray-300 shadow-sm hover:bg-neutral-200 transition"
             >
@@ -439,7 +447,7 @@ export default function Auth() {
               </div>
             </Button>
             <p className="text-xs md:text-sm text-center py-2 mt-4">
-              Belum bergabung dengan MovieApp?{" "}
+              Sudah bergabung dengan MovieApp?{" "}
               <button
                 type="button"
                 className="font-bold cursor-pointer hover:text-red-500"
