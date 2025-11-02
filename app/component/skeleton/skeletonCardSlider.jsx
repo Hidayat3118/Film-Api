@@ -1,6 +1,6 @@
 const SkeletonCardSlider = () => {
   return (
-    <div className="h-[500px] sm:h-[550px] md:h-[600px] w-full relative rounded-2xl overflow-hidden animate-pulse bg-gray-800">
+    <div className="h-[400px] sm:h-[550px] md:h-[600px] w-full relative rounded-2xl overflow-hidden animate-pulse bg-gray-800">
       {/* Background Skeleton */}
       <div className="w-full h-full object-cover bg-gray-700" />
 

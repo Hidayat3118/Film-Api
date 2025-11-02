@@ -404,7 +404,7 @@ export default function Auth() {
                   <p className="text-red-500 text-sm mt-1">{error.password}</p>
                 )}
               </div>
-              <p className="text-sm md:text-base text-gray-500">
+              <p className="text-xs md:text-sm text-gray-500">
                 Gunakan 8 atau lebih huruf, angka, dan simbol
               </p>
             </div>

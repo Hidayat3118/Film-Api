@@ -15,10 +15,12 @@ import { BookmarkIcon } from "lucide-react";
 import { signOut, getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/components/firebase"; // pastikan path sesuai
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export function ProfilMenu() {
   const [user, setUser] = useState(null);
   const firebaseAuth = getAuth();
+  const route = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -31,6 +33,7 @@ export function ProfilMenu() {
     try {
       await signOut(auth);
       toast.success("Berhasil keluar");
+      route.push("/");
     } catch (error) {
       console.error("Gagal keluar:", error);
       toast.error("Gagal keluar");
@@ -88,12 +91,18 @@ export function ProfilMenu() {
         <DropdownMenuSeparator />
 
         {/* Menu tengah */}
-        <DropdownMenuItem className="cursor-pointer px-4 py-2.5 text-sm flex items-center gap-2 hover:bg-gray-100">
+        <DropdownMenuItem
+          onClick={() => route.push("/profil")}
+          className="cursor-pointer px-4 py-2.5 text-sm flex items-center gap-2 hover:bg-gray-100"
+        >
           <User className="w-4 h-4 text-gray-600" />
           Profil Anda
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="cursor-pointer px-4 py-2.5 text-sm flex items-center gap-2 hover:bg-gray-100">
+        <DropdownMenuItem
+          onClick={() => route.push("/saved")}
+          className="cursor-pointer px-4 py-2.5 text-sm flex items-center gap-2 hover:bg-gray-100"
+        >
           <BookmarkIcon className="w-4 h-4 text-gray-600" />
           Movie Tersimpan
         </DropdownMenuItem>
