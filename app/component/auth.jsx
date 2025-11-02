@@ -26,6 +26,8 @@ import {
   onAuthStateChanged,
   signOut,
   GoogleAuthProvider,
+  getAuth,
+  sendPasswordResetEmail,
   updateProfile,
 } from "firebase/auth";
 // react
@@ -58,6 +60,55 @@ export default function Auth() {
   // input password
   const [visible, setVisible] = useState(true);
 
+  // handle reset password
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError({ email: "", general: "" }); // reset error dulu
+
+    // Validasi email kosong
+    if (!email) {
+      setError({
+        email: "Email wajib diisi",
+        general: "",
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Validasi format email (regex sederhana)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError({
+        email: "Format email tidak valid",
+        general: "",
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Link reset kata sandi telah dikirim ke email kamu!");
+      setEmail("");
+    } catch (error) {
+      console.error(error);
+
+      if (error.code === "auth/user-not-found") {
+        setError({ email: "Email tidak terdaftar", general: "" });
+      } else if (error.code === "auth/invalid-email") {
+        setError({ email: "Format email tidak valid", general: "" });
+      } else {
+        setError({
+          email: "",
+          general: "Terjadi kesalahan, coba lagi nanti.",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // handle login
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -78,6 +129,8 @@ export default function Auth() {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil login");
       setOpen(false);
+      setEmail("");
+      setPassword("");
     } catch (error) {
       console.log("Error code:", error.code);
       console.log("Error message:", error.message);
@@ -169,9 +222,11 @@ export default function Auth() {
         displayName: name,
         photoURL: `https://api.dicebear.com/8.x/identicon/svg?seed=${userCredential.user.uid}`,
       });
-
       toast.success("Registrasi sukses!");
       setOpen(false);
+      setEmail("");
+      setName("");
+      setPassword("");
     } catch (error) {
       // console.error("Register error:", error.code, error.message);
 
@@ -253,6 +308,7 @@ export default function Auth() {
                   name="name"
                   placeholder="email"
                   onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
                 {/* error email */}
                 {error.email && (
@@ -269,6 +325,7 @@ export default function Auth() {
                   name="username"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
                 {/* salah password */}
                 {error.password && (
@@ -306,6 +363,13 @@ export default function Auth() {
                 )}
               </Button>
             </DialogFooter>
+            <button
+              type="button"
+              onClick={() => setSesion("lupaPassword")}
+              className="text-sm pt-3 font-semibold text-indigo-500 hover:text-indigo-600 cursor-pointer"
+            >
+              Lupa Kata Sandi ?
+            </button>
             <p className="text-center text-sm my-4">Atau</p>
             {/* button with google */}
             <Button
@@ -336,7 +400,7 @@ export default function Auth() {
             {/* end Login */}
           </form>
         </DialogContent>
-      ) : (
+      ) : sesion === "register" ? (
         // register
         <DialogContent className="sm:max-w-[425px] md:px-10">
           <form onSubmit={handleRegister}>
@@ -360,6 +424,7 @@ export default function Auth() {
                   id="username-2"
                   placeholder="Masukan Nama Lengkap"
                   onChange={(e) => setName(e.target.value)}
+                  value={name}
                 />
                 {/* error nama */}
                 {error.name && (
@@ -375,6 +440,7 @@ export default function Auth() {
                   name="name"
                   placeholder="Masukan Email"
                   onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
                 {/* eror email */}
                 {error.email && (
@@ -391,6 +457,7 @@ export default function Auth() {
                   name="username"
                   placeholder="Masukan Password"
                   onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
                 <button
                   type="button"
@@ -456,6 +523,64 @@ export default function Auth() {
                 Login
               </button>
             </p>
+          </form>
+        </DialogContent>
+      ) : (
+        // lupas password
+        <DialogContent className="sm:max-w-[425px] md:px-10">
+          <form onSubmit={handleResetPassword}>
+            <DialogHeader>
+              <DialogTitle className="text-center text-base text-gray-600 w-56 mx-auto space-y-4">
+                {" "}
+                <p className="text-red-500 text-2xl font-bold">MovieApp</p>
+                <p>Lupa Password</p>
+              </DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4">
+              {/* email login */}
+              <div className="grid gap-3">
+                <Label htmlFor="name-1">Email</Label>
+                <Input
+                  className="h-12 rounded-2xl border border-gray-300"
+                  id="emailReset"
+                  name="emailReset"
+                  placeholder="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
+                {/* error email */}
+                {error.email && (
+                  <p className="text-red-500 text-sm">{error.email}</p>
+                )}
+              </div>
+            </div>
+            <DialogFooter>
+              {/* button login */}
+              <Button
+                disabled={loading}
+                className="w-full h-12 rounded-2xl bg-red-500 hover:bg-red-700 cursor-pointer mt-6"
+                type="submit"
+              >
+                {loading ? (
+                  <>
+                    <Spinner /> Loading
+                  </>
+                ) : (
+                  "Kirim Link Reset Password"
+                )}
+              </Button>
+            </DialogFooter>
+            <p className="text-xs md:text-sm text-center py-2 mt-4">
+              Kembali Ke Halaman Login?{" "}
+              <button
+                type="button"
+                className="font-bold cursor-pointer hover:text-red-500"
+                onClick={() => handleSesion("login")}
+              >
+                Login
+              </button>
+            </p>
+            {/* end Login */}
           </form>
         </DialogContent>
       )}

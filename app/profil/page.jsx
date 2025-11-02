@@ -1,11 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
+// firebase
 import {
   onAuthStateChanged,
   updateProfile,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "@/components/firebase";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+//
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +22,26 @@ export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const router = useRouter();
+
+  const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !auth.currentUser) return;
+
+    const storage = getStorage();
+    const storageRef = ref(storage, `profilePhotos/${auth.currentUser.uid}`);
+
+    try {
+      await uploadBytes(storageRef, file);
+      const photoURL = await getDownloadURL(storageRef);
+      await updateProfile(auth.currentUser, { photoURL });
+
+      toast.success("Foto profil berhasil diperbarui!");
+      setUser({ ...auth.currentUser });
+    } catch (error) {
+      console.error(error);
+      toast.error("Gagal memperbarui foto profil!");
+    }
+  };
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -76,8 +99,17 @@ export default function ProfilePage() {
                 width={96}
                 height={96}
                 quality={100}
-                className="rounded-full border md:h-36 md:w-36 border-neutral-200 shadow-md transition-transform duration-300 group-hover:scale-105"
+                className="rounded-full border md:h-36 md:w-36 border-neutral-200 shadow-md "
               />
+              {/* <label className="absolute bottom-0 right-0 font-semibold bg-red-500 hover:bg-red-600 text-white text-xs md:text-sm px-2 py-1 rounded cursor-pointer">
+                Ubah
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleUploadPhoto}
+                />
+              </label> */}
             </div>
             <h1 className="mt-4 text-xl font-semibold text-neutral-900">
               {user.displayName || "Tanpa Nama"}
@@ -132,8 +164,9 @@ export default function ProfilePage() {
               </label>
 
               <p className="text-xs md:text-sm text-neutral-600 text-center mb-4">
-                Untuk alasan keamanan, semua perubahan password dilakukan melalui email.
-                Klik tombol di bawah untuk menerima link reset password.
+                Untuk alasan keamanan, semua perubahan password dilakukan
+                melalui email. Klik tombol di bawah untuk menerima link reset
+                password.
               </p>
               <Button
                 onClick={handleSendResetEmail}
