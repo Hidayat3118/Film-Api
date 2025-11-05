@@ -165,12 +165,13 @@ export default function Auth() {
       // router.push("/");
     } catch (error) {
       console.error("gagal with google", error.message);
+      toast.error('gagal masuk coba lain waktu');
     } finally {
       setLoading(false);
     }
   };
 
-  // handle google
+  // handle google register
   const handleGoogleRegister = async () => {
     try {
       setLoading(true);
@@ -180,6 +181,7 @@ export default function Auth() {
       // router.push("/");
     } catch (error) {
       console.error("gagal with google", error.message);
+      toast.error('gagal masuk coba lain waktu');
     } finally {
       setLoading(false);
     }
