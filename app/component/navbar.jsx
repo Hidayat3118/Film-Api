@@ -70,7 +70,7 @@ const Navbar = () => {
         <div className="flex justify-between h-20 items-center px-4 md:px-0">
           {/* Logo */}
           <div className="text-lg md:text-xl lg:text-2xl font-bold text-red-500 tracking-wide">
-            <Link href="/">MovieApp</Link>
+            <Link href="/">CineVault</Link>
           </div>
 
           {/* Menu Desktop */}
