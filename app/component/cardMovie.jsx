@@ -8,7 +8,7 @@ import {
 } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const CardMovie = ({ id, title, img, rating, date }) => {
+const CardMovie = ({ id, title, img, rating }) => {
   // const handlePlay = (e) => {
   //   e.preventDefault();
   //   toast.error("Tidak bisa menonton karena hak cipta 🎬");
@@ -50,11 +50,6 @@ const CardMovie = ({ id, title, img, rating, date }) => {
           <h2 className="font-semibold text-base md:text-lg text-gray-800 line-clamp-1">
             {title}
           </h2>
-
-          {/* <div className="flex items-center gap-2 mt-2 text-gray-600 text-xs">
-            <MdOutlineCalendarToday className="text-gray-600" />
-            <span>{date}</span>
-          </div> */}
         </div>
 
         {/* Efek lembut di bawah */}

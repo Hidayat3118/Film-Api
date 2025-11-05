@@ -16,6 +16,7 @@ import { signOut, getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/components/firebase"; // pastikan path sesuai
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export function ProfilMenu() {
   const [user, setUser] = useState(null);
@@ -50,16 +51,15 @@ export function ProfilMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 focus:outline-none">
-          <Avatar className="h-12 w-12 md:h-14 md:w-14 cursor-pointer">
-            <AvatarImage
-              src={user.photoURL || "/profil-default.jpg"}
-              alt={user.displayName || "User"}
-            />
-            <AvatarFallback>
-              {user.displayName ? user.displayName[0] : "?"}
-            </AvatarFallback>
-          </Avatar>
+        <button className="flex items-center gap-2 focus:outline-none cursor-pointer ">
+          <Image
+            src={user.photoURL || "/profil-default.jpg"}
+            alt="User Avatar"
+            width={96}
+            height={96}
+            quality={100}
+            className="rounded-full border h-14 w-14 md:h-16 md:w-16 border-neutral-200 shadow-md "
+          />
         </button>
       </DropdownMenuTrigger>
 
@@ -69,15 +69,14 @@ export function ProfilMenu() {
       >
         {/* Bagian profil atas */}
         <DropdownMenuLabel className="flex items-center gap-3 p-3">
-          <Avatar className="h-12 w-12 md:h-14 md:w-14">
-            <AvatarImage
+            <Image
               src={user.photoURL || "/profil-default.jpg"}
-              alt={user.displayName || "User"}
+              alt="User Avatar"
+              width={96}
+              height={96}
+              quality={100}
+              className="rounded-full border h-12 w-12 md:h-14 md:w-14 border-neutral-200 shadow-md "
             />
-            <AvatarFallback>
-              {user.displayName ? user.displayName[0] : "?"}
-            </AvatarFallback>
-          </Avatar>
           <div>
             {/* nama user */}
             <p className="font-semibold text-gray-800 truncate">

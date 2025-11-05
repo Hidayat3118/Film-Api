@@ -153,7 +153,7 @@ export default function MovieDetailPage() {
                 aria-label="Toggle bookmark"
                 size="lg"
                 variant="outline"
-                className="cursor-pointer transition hover:scale-105 duration-100 data-[state=on]:*:[svg]:fill-black data-[state=on]:*:[svg]:stroke-black px-5 py-2 border border-gray-300 rounded-xl font-semibold text-sm md:text-base"
+                className="cursor-pointer transition hover:scale-105 duration-100 data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-red-500 px-5 py-2 border border-gray-300 rounded-xl font-semibold text-sm md:text-base"
               >
                 <BookmarkIcon />
                 Save Movie

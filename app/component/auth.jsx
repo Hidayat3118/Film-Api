@@ -164,7 +164,6 @@ export default function Auth() {
       setOpen(false);
       // router.push("/");
     } catch (error) {
-      toast.error("Gagal login dengan Google: " + error.message);
       console.error("gagal with google", error.message);
     } finally {
       setLoading(false);
@@ -180,7 +179,6 @@ export default function Auth() {
       setOpen(false);
       // router.push("/");
     } catch (error) {
-      toast.error("Gagal Register dengan Google: " + error.message);
       console.error("gagal with google", error.message);
     } finally {
       setLoading(false);
