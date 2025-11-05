@@ -34,7 +34,7 @@ export function ProfilMenu() {
     try {
       await signOut(auth);
       toast.success("Berhasil keluar");
-      route.push("/");
+      // route.push("/");
     } catch (error) {
       console.error("Gagal keluar:", error);
       toast.error("Gagal keluar");

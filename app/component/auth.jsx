@@ -286,7 +286,7 @@ export default function Auth() {
 
       {/* login */}
       {sesion === "login" ? (
-        <DialogContent className="sm:max-w-[425px] md:px-10">
+        <DialogContent className="sm:max-w-[425px] md:px-10 ">
           <form onSubmit={handleLogin}>
             <DialogHeader>
               <DialogTitle className="text-center text-base text-gray-600 w-56 mx-auto space-y-4">
@@ -402,7 +402,7 @@ export default function Auth() {
         </DialogContent>
       ) : sesion === "register" ? (
         // register
-        <DialogContent className="sm:max-w-[425px] md:px-10">
+        <DialogContent className="sm:max-w-[425px] md:px-10 max-h-[80vh] overflow-y-auto">
           <form onSubmit={handleRegister}>
             <DialogHeader>
               <DialogTitle className="text-center text-base text-gray-600 w-56 mx-auto space-y-4">

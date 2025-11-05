@@ -147,71 +147,71 @@ const Navbar = () => {
         </div>
       </div>
 
-      
       {/* Mobile Menu */}
-<div
-  className={`md:hidden transition-all duration-300 ease-in-out ${
-    isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-  }`}
->
-  <div className="relative px-4 pt-2 pb-4 space-y-4 border-t border-gray-200 text-center overflow-visible">
-   <div className="grid gap-4">
-     <Link href="/" className={linkClass("/")}>
-      Home
-    </Link>
-    <Link href="/popular" className={linkClass("/popular")}>
-      Popular
-    </Link>
-    <Link href="/upcoming" className={linkClass("/upcoming")}>
-      Upcoming
-    </Link>
-    <Link href="/topRated" className={linkClass("/topRated")}>
-      Top Rated
-    </Link>
-   </div>
+      <div
+        className={`md:hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="relative px-4 pt-2 pb-4 space-y-4 border-t border-gray-200 text-center overflow-visible">
+          <div className="grid gap-4">
+            <Link href="/" className={linkClass("/")}>
+              Home
+            </Link>
+            <Link href="/popular" className={linkClass("/popular")}>
+              Popular
+            </Link>
+            <Link href="/upcoming" className={linkClass("/upcoming")}>
+              Upcoming
+            </Link>
+            <Link href="/topRated" className={linkClass("/topRated")}>
+              Top Rated
+            </Link>
+          </div>
 
-    {/* 🔎 Search Bar Mobile */}
-    <div className="relative flex justify-center">
-      <form onSubmit={serchSubmit} className="w-full flex justify-center">
-        <div className="relative w-full max-w-xs">
-          <input
-            type="text"
-            placeholder="Search movies..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-            className="pl-10 pr-4 py-2 w-full rounded-full border border-gray-400 focus:ring-2 focus:ring-red-400 focus:outline-none transition text-gray-600"
-          />
-          <FiSearch
-            className="absolute left-3 top-3.5 text-gray-600"
-            size={18}
-          />
+          {/* 🔎 Search Bar Mobile */}
+          <div className="relative flex justify-center">
+            <form onSubmit={serchSubmit} className="w-full flex justify-center">
+              <div className="relative w-full max-w-xs">
+                <input
+                  type="text"
+                  placeholder="Search movies..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+                  className="pl-10 pr-4 py-2 w-full rounded-full border border-gray-400 focus:ring-2 focus:ring-red-400 focus:outline-none transition text-gray-600"
+                />
+                <FiSearch
+                  className="absolute left-3 top-3.5 text-gray-600"
+                  size={18}
+                />
+              </div>
+            </form>
+
+            {/* 🔽 Dropdown hasil pencarian (mobile fix) */}
+            {isFocused && suggestions.length > 0 && (
+              <ul className="absolute top-12 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-lg shadow-lg w-64 max-h-60 overflow-y-auto z-[9999]">
+                {suggestions.map((movie) => (
+                  <li
+                    key={movie.id}
+                    onMouseDown={(e) => {
+                      e.preventDefault(); // cegah blur
+                      handleSelectSuggestion(movie.title);
+                    }}
+                    className="px-4 py-2 flex items-center gap-2 cursor-pointer hover:bg-gray-100"
+                  >
+                    <FiSearch className="text-gray-400" size={16} />
+                    <span className="text-gray-700 truncate">
+                      {movie.title}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
-      </form>
-
-      {/* 🔽 Dropdown hasil pencarian (mobile fix) */}
-      {isFocused && suggestions.length > 0 && (
-        <ul className="absolute top-12 left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-lg shadow-lg w-64 max-h-60 overflow-y-auto z-[9999]">
-          {suggestions.map((movie) => (
-            <li
-              key={movie.id}
-              onMouseDown={(e) => {
-                e.preventDefault(); // cegah blur
-                handleSelectSuggestion(movie.title);
-              }}
-              className="px-4 py-2 flex items-center gap-2 cursor-pointer hover:bg-gray-100"
-            >
-              <FiSearch className="text-gray-400" size={16} />
-              <span className="text-gray-700 truncate">{movie.title}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  </div>
-</div>
-
+      </div>
     </nav>
   );
 };
