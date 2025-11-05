@@ -150,7 +150,9 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          isOpen
+            ? "max-h-screen opacity-100 pointer-events-auto"
+            : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
         <div className="relative px-4 pt-2 pb-4 space-y-4 border-t border-gray-200 text-center overflow-visible">
